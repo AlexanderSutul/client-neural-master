@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 
 class FormQ extends Component {
 
@@ -17,7 +16,7 @@ class FormQ extends Component {
     };
 
     handleSubmit(e) {
-        console.log(this.state);
+        this.props.handleState(this.state);
         e.preventDefault();
     }
 
@@ -66,6 +65,7 @@ class FormQ extends Component {
 
             default:
                 console.log('Bad');
+                break;
         }
     }
 
