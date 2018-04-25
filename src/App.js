@@ -55,7 +55,7 @@ class App extends Component {
                 <ModalComponent
                     show={this.state.showModal}
                     hideModal={() => this.setState({showModal: false})}
-                    data={this.state.object}
+                    data={this.state.data}
                 />
             </Grid>
         );
