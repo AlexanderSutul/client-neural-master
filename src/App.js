@@ -1,29 +1,63 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import FormQ from './Form.js';
+import Form from './Form.js';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import NavBar from 'react-bootstrap/lib/Navbar';
+import NavBarHeader from 'react-bootstrap/lib/NavbarHeader';
+import NavBarBrand from 'react-bootstrap/lib/NavbarBrand';
+import ModalComponent from './ModalComponent';
+
 
 class App extends Component {
 
     handleObject(object) {
-        console.log(`handle object from App component`)
-        console.log(object)
+        this.setState({object});
+        console.log('my obj is', object);
+        this.setState({showModal: true});
     }
+
+    state = {
+        showModal: false,
+        object: {}
+    };
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <section>
-                    <FormQ handleState={object => this.handleObject(object)}/>
-                </section>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-            </div>
+            <Grid fluid={false}>
+                <Row> {/*Хедер*/}
+                    <Col md={12}>
+                        <NavBar>
+                            <NavBarHeader>
+                                <NavBarBrand>
+                                    <a>Neural-Breathe-Master-App</a>
+                                </NavBarBrand>
+                            </NavBarHeader>
+                        </NavBar>
+                    </Col>
+                </Row>
+                <Row> {/*Лейбл*/}
+                    <Col md={12}>
+                        <div>
+                            <h4>
+                                Введите данные пациента в форму ниже:
+                            </h4>
+                        </div>
+                    </Col>
+                </Row>
+                <Row> {/*Форма*/}
+                    <Col md={12}>
+                        <Form handleState={(obj) => this.handleObject(obj)}/>
+                    </Col>
+                </Row>
+                {/*Модальное окно*/}
+                <ModalComponent
+                    show={this.state.showModal}
+                    hideModal={() => this.setState({showModal: false})}
+                    data={this.state.object}
+                />
+            </Grid>
         );
     }
 }
