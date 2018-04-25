@@ -52,11 +52,7 @@ class App extends Component {
                     </Col>
                 </Row>
                 {/*Модальное окно*/}
-                <ModalComponent
-                    show={this.state.showModal}
-                    hideModal={() => this.setState({showModal: false})}
-                    data={this.state.data}
-                />
+                <ModalComponent/>
             </Grid>
         );
     }

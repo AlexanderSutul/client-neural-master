@@ -5,6 +5,10 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Row from 'react-bootstrap/lib/Row';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {sendData} from "./actions/send_data_action";
+
 class Form extends Component {
 
     state = {
@@ -75,6 +79,7 @@ class Form extends Component {
     };
 
     render() {
+        console.log(this.props.testStore);
         return (
             <form>
                 <Row>
@@ -96,7 +101,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.age}
+                            value={this.props.data.age}
                             onChange={event => this.handleChange(event, "age")}
                         />
                         <ControlLabel>
@@ -105,7 +110,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.height}
+                            value={this.props.data.height}
                             onChange={event => this.handleChange(event, "height")}
                         />
                         <ControlLabel>
@@ -114,7 +119,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.bodyMass}
+                            value={this.props.data.bodyMass}
                             onChange={event => this.handleChange(event, "bodyMass")}
                         />
                         <ControlLabel>
@@ -123,7 +128,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.bodyMassIndex}
+                            value={this.props.data.bodyMassIndex}
                             onChange={event => this.handleChange(event, "bodyMassIndex")}
                         />
                     </Col>
@@ -134,7 +139,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.chest}
+                            value={this.props.data.chest}
                             onChange={event => this.handleChange(event, "chest")}
                         />
                         <ControlLabel>
@@ -143,7 +148,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.shoulder}
+                            value={this.props.data.shoulder}
                             onChange={event => this.handleChange(event, "shoulder")}
                         />
                         <ControlLabel>
@@ -152,7 +157,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.forearm}
+                            value={this.props.data.forearm}
                             onChange={event => this.handleChange(event, "forearm")}
                         />
                         <ControlLabel>
@@ -161,7 +166,7 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.shin}
+                            value={this.props.data.shin}
                             onChange={event => this.handleChange(event, "shin")}
                         />
                         <ControlLabel>
@@ -170,14 +175,16 @@ class Form extends Component {
                         <FormControl
                             type="number"
                             placeholder=""
-                            value={this.state.lean}
+                            value={this.props.data.lean}
                             onChange={event => this.handleChange(event, "lean")}
                         />
                     </Col>
                 </Row>
                 <Row>
                     <Col md={12} className="text-center">
-                        <Button bsStyle="danger" onClick={event => this.handleSubmit(event)}>Отправить</Button>
+                        <Button bsStyle="danger" onClick={() => {
+                            this.props.sendData(this.props.data);
+                        }}>Отправить</Button>
                     </Col>
                 </Row>
             </form>
@@ -185,4 +192,14 @@ class Form extends Component {
     }
 }
 
-export default Form;
+function mapStateToProps(state) {
+    return {
+        data: state.data
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({sendData}, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Form);

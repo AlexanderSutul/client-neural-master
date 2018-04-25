@@ -6,13 +6,17 @@ import ModalBody from 'react-bootstrap/lib/ModalBody';
 import ModalFooter from 'react-bootstrap/lib/ModalFooter';
 import Button from 'react-bootstrap/lib/Button';
 
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {closeModal} from "./actions/close_modal";
+
 class ModalComponent extends Component {
     render() {
         return (
             <div className="modal-container" style={{ height: 200 }}>
                 <Modal
-                    show={this.props.show}
-                    onHide={() => this.props.hideModal()}
+                    show={this.props.sendData.show}
+                    onHide={() => this.props.closeModal(this.props.sendData)}
                     aria-labelledby="contained-modal-title"
                 >
                     <ModalHeader closeButton>
@@ -21,10 +25,12 @@ class ModalComponent extends Component {
                         </ModalTitle>
                     </ModalHeader>
                     <ModalBody>
-                        Сила дыхательных мышц по MEP = {this.props.data.age}
+                        {
+                            this.props.sendData.show === false ? 'false' : 'true'
+                        }
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={() => this.props.hideModal()}>Закрыть</Button>
+                        <Button onClick={() => this.props.closeModal(this.props.sendData)}>Закрыть</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -32,4 +38,16 @@ class ModalComponent extends Component {
     }
 }
 
-export default ModalComponent;
+function mapStateToProps(state) {
+    return {
+        sendData: state.sendData
+    }
+}
+
+
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({closeModal}, dispatch);
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(ModalComponent);
