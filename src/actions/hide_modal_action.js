@@ -1,7 +1,7 @@
 export const closeModal = (object) => {
     console.log("closeModal object is ", object);
     return {
-        type: 'CLOSE_MODAL',
+        type: 'HIDE_MODAL',
         payload: object
     }
 };

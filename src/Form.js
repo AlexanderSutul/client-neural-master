@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -8,78 +8,66 @@ import Row from 'react-bootstrap/lib/Row';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {sendData} from "./actions/send_data_action";
+import {openModal} from "./actions/open_modal_action";
+import {changeData} from "./actions/change_input_action";
 
 class Form extends Component {
-
-    state = {
-        sex: '',
-        age: '',
-        height: '',
-        bodyMass: '',
-        chest: '',
-        bodyMassIndex: '',
-        shoulder: '',
-        forearm: '',
-        shin: '',
-        lean: '',
-        show: false
-    };
-
-    handleSubmit = () => {
-        this.props.handleState(this.state);
-    };
 
     handleChange = (e, field) => {
         switch (field) {
             case "sex":
-                console.log(`value is ${this.inputEl.value} and field is '${field}'`);
-                this.setState({sex: this.inputEl.value});
+                console.log(`value is ${this.sexInput.value} and field is '${field}'`);
+                this.props.data.sex = this.sexInput.value;
                 break;
             case "age":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({age: e.target.value});
+                this.props.data.age = e.target.value;
                 break;
             case "height":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({height: e.target.value});
+                this.props.data.height = e.target.value;
                 break;
             case "bodyMass":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({bodyMass: e.target.value});
+                this.props.data.bodyMass = e.target.value;
                 break;
             case "chest":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({chest: e.target.value});
+                this.props.data.chest = e.target.value;
                 break;
             case "bodyMassIndex":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({bodyMassIndex: e.target.value});
+                this.props.data.bodyMassIndex = e.target.value;
                 break;
             case "shoulder":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({shoulder: e.target.value});
+                this.props.data.shoulder = e.target.value;
                 break;
             case "forearm":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({forearm: e.target.value});
+                this.props.data.forearm = e.target.value;
                 break;
             case "shin":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({shin: e.target.value});
+                this.props.data.shin = e.target.value;
                 break;
             case "lean":
                 console.log(`value is ${e.target.value} and field is '${field}'`);
-                this.setState({lean: e.target.value});
+                this.props.data.lean = e.target.value;
+                break;
+            case "type":
+                console.log(`value is ${this.typeInput.value} and field is '${field}'`);
+                this.props.data.type = this.typeInput.value;
                 break;
 
             default:
                 alert('No one should be here in switch\'s default');
                 break;
         }
+        this.props.changeData(this.props.data);
     };
 
     render() {
-        console.log(this.props.testStore);
         return (
             <form>
                 <Row>
@@ -89,7 +77,7 @@ class Form extends Component {
                             componentClass="select"
                             placeholder="select"
                             onChange={event => this.handleChange(event, "sex")}
-                            inputRef={ el => this.inputEl=el }
+                            inputRef={el => this.sexInput = el}
                         >
                             <option selected disabled>Выберите пол</option>
                             <option value={1}>Мужской</option>
@@ -181,8 +169,25 @@ class Form extends Component {
                     </Col>
                 </Row>
                 <Row>
+                    <Col md={12}>
+                        <ControlLabel>Тип анализа</ControlLabel>
+                        <FormControl
+                            componentClass="select"
+                            placeholder="select"
+                            onChange={event => this.handleChange(event, "type")}
+                            inputRef={el => this.typeInput = el}
+                        >
+                            <option selected disabled>Анализ</option>
+                            <option value="mep">MEP</option>
+                            <option value="mip">MIP</option>
+                            <option value="snip">SNIP</option>
+                        </FormControl>
+                    </Col>
+                </Row>
+                <Row>
                     <Col md={12} className="text-center">
-                        <Button bsStyle="danger" onClick={() => {
+                        <Button bsStyle="primary" onClick={() => {
+                            this.props.openModal(this.props.settings);
                             this.props.sendData(this.props.data);
                         }}>Отправить</Button>
                     </Col>
@@ -194,12 +199,13 @@ class Form extends Component {
 
 function mapStateToProps(state) {
     return {
-        data: state.data
+        data: state.data,
+        settings: state.settings
     }
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({sendData}, dispatch);
+    return bindActionCreators({sendData, openModal, changeData}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Form);

@@ -1,11 +1,10 @@
 import {combineReducers} from 'redux';
 import DataReducers from './data';
-import SendData from './send_data';
-import CloseModal from './close_modal'
+import SettingsReducer from './app_settings';
 
 const allReducers = combineReducers({
     data: DataReducers,
-    sendData: SendData,
+    settings: SettingsReducer
 });
 
 export default allReducers;
