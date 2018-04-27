@@ -34,6 +34,11 @@ export default (state = defaultStates, action) => {
                 ...action.payload,
                 isErrors: isError
             };
+        case 'CLEAR_RESULT':
+            return {
+            ...action.payload,
+            result: ''
+        };
         default:
             return state;
     }

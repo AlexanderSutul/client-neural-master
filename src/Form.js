@@ -189,8 +189,8 @@ class Form extends Component {
                 <Row>
                     <Col md={12} className="text-center">
                         <Button disabled={this.props.data.isErrors} bsStyle="primary" onClick={() => {
-                                this.props.openModal(this.props.settings);
-                                this.props.makeRequest(this.props.data);
+                            this.props.makeRequest(this.props.data);
+                            this.props.openModal(this.props.settings);
                         }}>Отправить</Button>
                     </Col>
                 </Row>

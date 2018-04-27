@@ -10,7 +10,8 @@
     "react-scripts": "1.1.4",
     "redux": "latest",
     "react-redux": "latest",
-    "axios": "latest"
+    "axios": "latest",
+    "redux-thunk": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

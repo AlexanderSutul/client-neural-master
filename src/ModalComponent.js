@@ -9,30 +9,38 @@ import Button from 'react-bootstrap/lib/Button';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {closeModal} from "./actions/hide_modal_action";
+import {clearResult} from "./actions/clear_result_action";
 
 const ModalComponent = (props) => {
-        let result = props.data.result;
-        return (
-            <div className="modal-container" style={{ height: 200 }}>
-                <Modal
-                    show={props.settings.modal}
-                    onHide={() => props.closeModal(props.settings)}
-                    aria-labelledby="contained-modal-title"
-                >
-                    <ModalHeader closeButton>
-                        <ModalTitle id="contained-modal-title">
-                            Отчет о состоянии пациента
-                        </ModalTitle>
-                    </ModalHeader>
-                    <ModalBody>
-                        {JSON.stringify(result)}
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={() => props.closeModal(props.settings)}>Закрыть</Button>
-                    </ModalFooter>
-                </Modal>
-            </div>
-        )
+    return (
+        <div className="modal-container" style={{height: 350}}>
+            <Modal
+                show={props.settings.modal}
+                onHide={() => {
+                    props.closeModal(props.settings);
+                    props.clearResult(props.data);
+                }}
+                aria-labelledby="contained-modal-title"
+            >
+                <ModalHeader closeButton>
+                    <ModalTitle id="contained-modal-title">
+                        Отчет о состоянии пациента
+                    </ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                    {props.data.result === ''
+                        ? <div>Идет обработка данных....</div>
+                        : JSON.stringify(props.data.result.data)}
+                </ModalBody>
+                <ModalFooter>
+                    <Button onClick={() => {
+                        props.closeModal(props.settings);
+                        props.clearResult(props.data);
+                    }}>Закрыть</Button>
+                </ModalFooter>
+            </Modal>
+        </div>
+    )
 };
 
 function mapStateToProps(state) {
@@ -43,9 +51,8 @@ function mapStateToProps(state) {
 }
 
 
-
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({closeModal}, dispatch);
+    return bindActionCreators({closeModal, clearResult}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(ModalComponent);
