@@ -7,9 +7,10 @@ import Row from 'react-bootstrap/lib/Row';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {sendData} from "./actions/send_data_action";
+import {makeRequest} from "./actions/send_data_action";
 import {openModal} from "./actions/open_modal_action";
 import {changeData} from "./actions/change_input_action";
+import {checkData} from "./actions/check_data_action";
 
 class Form extends Component {
 
@@ -64,6 +65,7 @@ class Form extends Component {
                 alert('No one should be here in switch\'s default');
                 break;
         }
+        this.props.checkData(this.props.data);
         this.props.changeData(this.props.data);
     };
 
@@ -186,9 +188,9 @@ class Form extends Component {
                 </Row>
                 <Row>
                     <Col md={12} className="text-center">
-                        <Button bsStyle="primary" onClick={() => {
-                            this.props.openModal(this.props.settings);
-                            this.props.sendData(this.props.data);
+                        <Button disabled={this.props.data.isErrors} bsStyle="primary" onClick={() => {
+                                this.props.openModal(this.props.settings);
+                                this.props.makeRequest(this.props.data);
                         }}>Отправить</Button>
                     </Col>
                 </Row>
@@ -205,7 +207,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({sendData, openModal, changeData}, dispatch);
+    return bindActionCreators({makeRequest, openModal, changeData, checkData}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Form);

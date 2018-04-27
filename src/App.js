@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import Form from './Form.js';
 import Grid from 'react-bootstrap/lib/Grid';
@@ -10,20 +10,7 @@ import NavBarBrand from 'react-bootstrap/lib/NavbarBrand';
 import ModalComponent from './ModalComponent';
 
 
-class App extends Component {
-
-    handleObject(object) {
-        this.setState({object});
-        console.log('my obj is', object);
-        this.setState({showModal: true});
-    }
-
-    state = {
-        showModal: false,
-        object: {}
-    };
-
-    render() {
+const App = () => {
         return (
             <Grid fluid={false}>
                 <Row> {/*Хедер*/}
@@ -48,14 +35,13 @@ class App extends Component {
                 </Row>
                 <Row> {/*Форма*/}
                     <Col md={12}>
-                        <Form handleState={(obj) => this.handleObject(obj)}/>
+                        <Form/>
                     </Col>
                 </Row>
                 {/*Модальное окно*/}
                 <ModalComponent/>
             </Grid>
         );
-    }
-}
+};
 
 export default App;

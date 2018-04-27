@@ -11,43 +11,28 @@ const defaultStates = {
     lean: '',
     result: '',
     type: '',
-    errors: []
+    isErrors: true
 };
 
-
-
-export default function (state = defaultStates, action) {
+export default (state = defaultStates, action) => {
     switch (action.type) {
-        case 'SEND_DATA':
-            console.log(action.type, action.payload);
+        case 'GET_ANSWER':
+            return {
+                ...action.payload,
+                show: true
+            };
+        case 'CHANGED_DATA':
             let isError = false;
             for (let key in action.payload) {
                 let value = action.payload[key];
+                if (key === 'result') continue;
                 if (value === '') {
                     isError = true;
-                    console.log(`${key} have not value`)
-                    action.payload.errors.push(
-                        {
-                            name: key
-                        }
-                    );
-                }
-            }
-            if (isError === true) {
-                console.log("is error ", isError);
-                return {
-                    ...action.payload
                 }
             }
             return {
                 ...action.payload,
-                show: true,
-                result: 'Here is a data'
-            };
-
-        case 'CHANGED_DATA':
-            return {
-                ...action.payload
+                isErrors: isError
             };
         default:
             return state;

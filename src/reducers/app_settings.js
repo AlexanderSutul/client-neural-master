@@ -1,5 +1,5 @@
 const settings = {
-  modal: false
+    modal: false,
 };
 
 

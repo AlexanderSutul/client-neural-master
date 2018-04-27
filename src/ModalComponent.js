@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import ModalHeader from 'react-bootstrap/lib/ModalHeader';
 import ModalTitle from 'react-bootstrap/lib/ModalTitle';
@@ -10,15 +10,13 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {closeModal} from "./actions/hide_modal_action";
 
-class ModalComponent extends Component {
-    render() {
-        // let result = this.props.data.result;
-        let result = this.props.data;
+const ModalComponent = (props) => {
+        let result = props.data.result;
         return (
             <div className="modal-container" style={{ height: 200 }}>
                 <Modal
-                    show={this.props.settings.modal}
-                    onHide={() => this.props.closeModal(this.props.settings)}
+                    show={props.settings.modal}
+                    onHide={() => props.closeModal(props.settings)}
                     aria-labelledby="contained-modal-title"
                 >
                     <ModalHeader closeButton>
@@ -30,13 +28,12 @@ class ModalComponent extends Component {
                         {JSON.stringify(result)}
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={() => this.props.closeModal(this.props.settings)}>Закрыть</Button>
+                        <Button onClick={() => props.closeModal(props.settings)}>Закрыть</Button>
                     </ModalFooter>
                 </Modal>
             </div>
         )
-    }
-}
+};
 
 function mapStateToProps(state) {
     return {
