@@ -113,7 +113,7 @@ class Form extends Component {
                             onChange={event => this.handleChange(event, "bodyMass")}
                         />
                         <ControlLabel>
-                            Индекс мыссы тела
+                            Индекс массы тела
                         </ControlLabel>
                         <FormControl
                             type="number"
