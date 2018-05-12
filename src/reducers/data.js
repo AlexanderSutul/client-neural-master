@@ -14,14 +14,18 @@ const defaultStates = {
     isErrors: true
 };
 
+const GET_ANSWER = 'GET_ANSWER';
+const CHANGED_DATA = 'CHANGED_DATA';
+const CLEAR_RESULT = 'CLEAR_RESULT';
+
 export default (state = defaultStates, action) => {
     switch (action.type) {
-        case 'GET_ANSWER':
+        case GET_ANSWER:
             return {
                 ...action.payload,
                 show: true
             };
-        case 'CHANGED_DATA':
+        case CHANGED_DATA:
             let isError = false;
             for (let key in action.payload) {
                 let value = action.payload[key];
@@ -34,7 +38,7 @@ export default (state = defaultStates, action) => {
                 ...action.payload,
                 isErrors: isError
             };
-        case 'CLEAR_RESULT':
+        case CLEAR_RESULT:
             return {
             ...action.payload,
             result: ''
