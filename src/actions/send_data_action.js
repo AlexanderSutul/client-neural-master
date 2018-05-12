@@ -15,7 +15,7 @@ export const makeRequest = (object) => {
                 });
             })
             .catch((error) => {
-                console.log(error);
+                console.log("error", error);)
             })
     }
 };
