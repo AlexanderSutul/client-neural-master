@@ -14,6 +14,6 @@ export const makeRequest = (object) => {
                     payload: object
                 });
             })
-            .catch(error => console.log('error', error))
+            .catch(error => console.log("error is ", error))
     }
 };
