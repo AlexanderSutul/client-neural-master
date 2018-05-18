@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/lib/Button';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {closeModal} from "./actions/hide_modal_action";
+import {closeModal} from "./actions/modal_action";
 import {clearResult} from "./actions/clear_result_action";
 
 const ModalComponent = (props) => {

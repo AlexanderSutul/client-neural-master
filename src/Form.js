@@ -8,9 +8,8 @@ import Row from 'react-bootstrap/lib/Row';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {makeRequest} from "./actions/send_data_action";
-import {openModal} from "./actions/open_modal_action";
-import {changeData} from "./actions/change_input_action";
-import {checkData} from "./actions/check_data_action";
+import {openModal} from "./actions/modal_action";
+import {checkData} from "./actions/check_input_action";
 
 class Form extends Component {
 
@@ -66,7 +65,6 @@ class Form extends Component {
                 break;
         }
         this.props.checkData(this.props.data);
-        this.props.changeData(this.props.data);
     };
 
     render() {
@@ -207,7 +205,7 @@ function mapStateToProps(state) {
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({makeRequest, openModal, changeData, checkData}, dispatch);
+    return bindActionCreators({makeRequest, openModal, checkData}, dispatch);
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(Form);

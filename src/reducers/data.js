@@ -15,7 +15,7 @@ const defaultStates = {
 };
 
 const GET_ANSWER = 'GET_ANSWER';
-const CHANGED_DATA = 'CHANGED_DATA';
+const CHECK_DATA = 'CHECK_DATA';
 const CLEAR_RESULT = 'CLEAR_RESULT';
 
 export default (state = defaultStates, action) => {
@@ -25,7 +25,7 @@ export default (state = defaultStates, action) => {
                 ...action.payload,
                 show: true
             };
-        case CHANGED_DATA:
+        case CHECK_DATA:
             let isError = false;
             for (let key in action.payload) {
                 let value = action.payload[key];
