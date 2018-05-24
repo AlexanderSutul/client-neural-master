@@ -12,6 +12,13 @@ import {closeModal} from "./actions/modal_action";
 import {clearResult} from "./actions/clear_result_action";
 
 const ModalComponent = (props) => {
+
+    const resultText =
+        <div>
+            Тип анализа {JSON.stringify(props.data.type).toUpperCase()} и значение {JSON.stringify(props.data.result.data)}
+        </div>
+    ;
+
     return (
         <div className="modal-container" style={{height: 350}}>
             <Modal
@@ -30,7 +37,8 @@ const ModalComponent = (props) => {
                 <ModalBody>
                     {props.data.result === ''
                         ? <div>Идет обработка данных....</div>
-                        : JSON.stringify(props.data.result.data)}
+                        : resultText
+                    }
                 </ModalBody>
                 <ModalFooter>
                     <Button onClick={() => {
