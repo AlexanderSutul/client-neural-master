@@ -77,7 +77,7 @@ const App = (props) => {
 
                             {
                                 props.patients.patientsList.length > 0 ?
-                                <Table responsive>
+                                <Table>
                                     <thead>
                                     <tr>
                                     <th>#</th>
@@ -95,6 +95,10 @@ const App = (props) => {
                                     <th>mip</th>
                                     <th>snip</th>
                                     <th></th>
+                                    <th></th>
+                                    <th>mep</th>
+                                    <th>mip</th>
+                                    <th>snip</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -118,6 +122,12 @@ const App = (props) => {
                                                     props.patients.deletedPatient = patient[0];
                                                     props.deletePatientRequest(props.patients);
                                                 }}>Удалить</Button></td>
+                                                <td><Button bsStyle="primary" onClick={() => {
+                                                    alert(`Пациент ${patient[0]} пересчитан`)
+                                                }}>Обработать</Button></td>
+                                                <td>{patient[11]}</td>
+                                                <td>{patient[12]}</td>
+                                                <td>{patient[13]}</td>
                                             </tr>
                                 )}
                                 </tbody>
