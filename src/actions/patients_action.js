@@ -45,6 +45,6 @@ export const addPatientRequest = object => {
                     payload: object
                 });
             })
-            .catch(error => console.log("error is ", error))
+            .catch(error => console.log('error is ', error))
     }
 }

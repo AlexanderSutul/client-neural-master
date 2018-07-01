@@ -2,7 +2,7 @@ const settings = {
     modal: false,
     modalPatient: false,
     form: true,
-    admin:false
+    admin: false
 };
 
 const OPEN_MODAL = 'OPEN_MODAL';
