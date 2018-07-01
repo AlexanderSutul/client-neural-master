@@ -24,7 +24,7 @@ const ADD_PATIENT = 'ADD_PATIENT';
 const DELETE_PATIENT = 'DELETE_PATIENT';
 const CHECK_PATIENT = 'CHECK_PATIENT'
 
-export default (state = defaultStates, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case GET_PATIENTS:
             return {
@@ -33,21 +33,7 @@ export default (state = defaultStates, action) => {
         case ADD_PATIENT:
             return {
                 ...action.payload,
-                patient: {
-                    sex: '',
-                    age: '',
-                    height: '',
-                    bodyMass: '',
-                    chest: '',
-                    bodyMassIndex: '',
-                    shoulder: '',
-                    forearm: '',
-                    shin: '',
-                    lean: '',
-                    mep: '',
-                    mip: '',
-                    snip: ''
-                }
+                patient: state.patient
             };
         case DELETE_PATIENT:
             return {
