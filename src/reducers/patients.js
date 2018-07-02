@@ -24,7 +24,7 @@ const ADD_PATIENT = 'ADD_PATIENT';
 const DELETE_PATIENT = 'DELETE_PATIENT';
 const CHECK_PATIENT = 'CHECK_PATIENT'
 
-export default (state = {}, action) => {
+export default (state = defaultStates, action) => {
     switch (action.type) {
         case GET_PATIENTS:
             return {
